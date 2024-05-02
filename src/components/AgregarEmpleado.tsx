@@ -8,13 +8,13 @@ import { NavLink } from "react-router-dom";
 export const AgregarEmpleado = () => {
 
     const [data, setData] = useState<postEmpleadoType>({} as postEmpleadoType);
-
+    
     async function guardarEmpleado(e: FormEvent) {
         e.preventDefault();
 
         const res = await postEmpleado(data)
 
-        if (res?.status != 200 && res != undefined) {
+        if (res?.status != 201 && res != undefined) {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
@@ -23,11 +23,11 @@ export const AgregarEmpleado = () => {
                 timer: 1500
             });
         }
-
+        console.log(res)
         Swal.fire({
             position: "top-end",
             icon: "success",
-            title: res.data.message,
+            title: res?.data.message,
             showConfirmButton: false,
             timer: 1500
         });
@@ -44,7 +44,7 @@ export const AgregarEmpleado = () => {
                             <h3>Crear Empleado</h3>
                         </div>
                         <div className="card-body">
-                            <form onSubmit={(e) => guardarEmpleado(e)}>
+                            <form onSubmit={guardarEmpleado}>
                                 <div className="form-group">
                                     <div className="d-flex">
                                         <label htmlFor="nombre">Nombre Completo</label>

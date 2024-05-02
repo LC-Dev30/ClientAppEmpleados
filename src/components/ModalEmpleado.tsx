@@ -21,7 +21,7 @@ export const ModalEmpleado = (props: props) => {
 
   return (
     <div>
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Asignar Locker
       </button>
 

@@ -1,9 +1,10 @@
 import {createBrowserRouter} from 'react-router-dom';
-import Dashboard from '../components/Panel';
+import {Panel} from '../components/Panel';
 import App from '../App';
 import { AgregarEmpleado } from '../components/AgregarEmpleado';
 import { EditarEmpleado } from '../components/EditarEmpleado';
 import { AgregarLockers } from '../components/AgregarLockers';
+import { SeccionEmpleado } from '../components/SeccionEmpleado';
 
 export const router = createBrowserRouter([
     {
@@ -12,7 +13,7 @@ export const router = createBrowserRouter([
     },
     {
         path:'/dashboard',
-        element:<Dashboard/>
+        element:<Panel/>
     },
     {
         path:'/dashboard/empleado',
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
     {
         path:'/dashboard/empleado/:codigoEmpleado',
         element:<EditarEmpleado/>
+    },
+    {
+        path:'/dashboard/empleado/seccion/:codigoOrNombre',
+        element:<SeccionEmpleado/>
     },
 ])

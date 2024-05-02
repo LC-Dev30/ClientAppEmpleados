@@ -19,4 +19,8 @@ export type eliminarEmpleadoType = {
     CodigoEmpleado:number 
 }
 
+export type TypeDataLogin = {
+    Nombre:string
+    Contraseña:string
+}
 

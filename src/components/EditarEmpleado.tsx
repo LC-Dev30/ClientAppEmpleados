@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from "react"
-import { EmpleadoPorCodigo, editarEmpleadoExistente, getLockers } from "../requestClient/hook";
+import { empleadoPorCodigoOrNombre, editarEmpleadoExistente, getLockers } from "../requestClient/hook";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { editarEmpleadoType } from "../types/typesApp";
 import Swal from "sweetalert2";
@@ -11,7 +11,7 @@ export const EditarEmpleado = () => {
 
     const [listalockers, setListaLockers] = useState<{ id: number, numeroLocker: number, estado: number, bandejaPocision: number, calzadoPocision: number }[]>([])
     const { codigoEmpleado } = useParams();
-    const nombreRef = useRef<HTMLInputElement>()
+    const nombreRef = useRef<HTMLInputElement>(null)
 
     const router = useNavigate()
 
@@ -20,15 +20,15 @@ export const EditarEmpleado = () => {
             const lockers = await getLockers()
 
             if (codigoEmpleado != null && nombreRef.current != undefined) {
-                const empleado = await EmpleadoPorCodigo(parseInt(codigoEmpleado));
-                setData(empleado)
-                nombreRef.current.value = empleado.nombre
+                const empleado = await empleadoPorCodigoOrNombre(codigoEmpleado);
+                setData(empleado?.data)
+                nombreRef.current.value = empleado?.data.nombre
             }
 
             setListaLockers(lockers)
         }
         fetchData()
-    }, [])
+    }, [codigoEmpleado])
 
     async function editarEmpleado(e: FormEvent) {
         e.preventDefault()
@@ -55,7 +55,7 @@ export const EditarEmpleado = () => {
         Swal.fire({
             position: "top-end",
             icon: "success",
-            title: res.data.message,
+            title: res?.data.message,
             showConfirmButton: false,
             timer: 1500
           });
